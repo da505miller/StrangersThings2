@@ -18,7 +18,8 @@ const Register = (props) => {
         <form onSubmit={async (event) => {
             event.preventDefault();
             try {
-                const response = await fetchNewUser(setToken, userName, password, verifyPassword)
+                const response = await fetchNewUser(setToken, userName, password, verifyPassword);
+                
                 
             }
             catch (error) {
@@ -46,9 +47,7 @@ const Register = (props) => {
                 </div>
 
                 <button type="submit" className="btn btn-primary btn-dark btn-lg btn-block">Register</button>
-                <p className="forgot-password text-right">
-                    Already registered? <a href="#">log in</a>
-                </p>
+                
             </form>
     )
 }

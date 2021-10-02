@@ -49,13 +49,13 @@ export const fetchNewUser = async (setToken, userName, password, verifyPassword)
         console.log(result)
     }
     catch (err) {
-        console.error ("Trouble fetching register", err)
+        console.error ("Trouble registering", err)
     }
    }
 
 // This function will login an existing user
    export const loginUser = async (userName, password, setToken) => {
-       try {const response = fetch('https://strangers-things.herokuapp.com/api/COHORT-NAME/users/login', {
+       try {const response = await fetch('https://strangers-things.herokuapp.com/api/2107-CSU-RM-WEB-PT/users/login', {
         method: "POST",
         headers: {
           'Content-Type': 'application/json'
@@ -81,3 +81,31 @@ export const fetchNewUser = async (setToken, userName, password, verifyPassword)
             console.error ("Trouble logging in", err)
         }
    }
+
+// This function will attempt to create a new posting
+    export const createPost = async (token, title, description, price, deliver) => {
+        try {
+            const response = await fetch('https://strangers-things.herokuapp.com/api/2107-CSU-RM-WEB-PT/posts', {
+                method: "POST",
+                headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': token
+                        },
+                body: JSON.stringify({
+                    post: {
+                        title: title,
+                        description: description,
+                        price: price,
+                        willDeliver: deliver
+                    }
+                })
+            })
+            const result = await response.json();
+            if (result.error) throw result.error;
+            console.log(result)
+            return result.data.posts
+        }
+        catch (err) {
+            console.error("Trouble with posting the new post", err)
+        }
+    }   

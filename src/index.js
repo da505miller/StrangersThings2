@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { useState, useEffect } from 'react'; 
-import { Title, Login, Posts, Register } from './Components';
+import { Title, Login, Posts, Register, Newpost } from './Components';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 const App = () => {
@@ -25,12 +25,14 @@ const App = () => {
               <Link to="/login"> Login </Link>
               <Link to="/register"> Register</Link>
               <Link to="/posts"> Posts </Link>
+              <Link to="/newpost">Make new post </Link>
 
                 
 
               <Route path="/login" render={(routeProps) => <Login {...routeProps} setToken={setToken} />} />
               <Route path="/register" render={(routeProps) => <Register {...routeProps} setToken={setToken} />} />
               <Route path="/posts" render={(routeProps) => <Posts {...routeProps} isLoggedIn={!!token}/>}/>
+              <Route path="/newpost" render={(routeProps) => <Newpost {...routeProps} token={token}/>}/>
             </Router></>)
 }
 
