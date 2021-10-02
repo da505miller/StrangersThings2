@@ -1,60 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { loginUser, fetchNewUser } from '../API';
 
 
-async function login( username, password, setToken) {
-    const response = await fetch('https://strangers-things.herokuapp.com/api/2107-CSU-RM-WEB-PT/users/login', {
-                                method: "POST",
-                                headers: {
-                                    'Content-Type': 'application/json'
-                                },
-                                body: JSON.stringify({
-                                    user: {
-                                        username: username,
-                                        password: password
-        }
-    })
-  })
-
-  const result = await response.json();
-  console.log(result.data.token);
-  const token = result.data.token;
-  setToken(token);
-  localStorage.setItem("token", token);
-  localStorage.getItem("token");
-}
-
-async function register(setToken, username, password, confirmedPassword) {
-    if (password !== confirmedPassword) {
-        alert("PASSWORDS DON'T MATCH!");
-        return;
-    }
-    const response = await fetch(
-        'https://strangers-things.herokuapp.com/api/2107-CSU-RM-WEB-PT/users/register', 
-        {
-          method: "POST",
-          headers: {
-            'Content-Type': 'application/json',
-    },
-        body: JSON.stringify({
-            user: {
-                username,
-                password
-    },
-  }),
- }
-)
-    const result = await response.json();
-    // console.log(result.data.token);
-    const token = result.data.token
-    setToken(token)
-//     .then(({ data }) => {
-//       const { token } = data.data
-//       console.log(token);
-//   })
-//   .catch(console.error));
-
-}
 
 const Login = ({ setToken, match }) => {
     const [userName, setUserName] = useState("");
@@ -67,9 +15,9 @@ const Login = ({ setToken, match }) => {
                 event.preventDefault();
                 
                 if (match.url === "/register") {
-                    register(setToken, userName, password, confirmedPassword)};
+                    fetchNewUser(setToken, userName, password, confirmedPassword)};
                 if (match.url === "/login") {
-                    login(userName, password, setToken)};
+                    loginUser(userName, password, setToken)};
                 console.log(userName, password, confirmedPassword);
             }}>
             <div className="form-group">
@@ -110,7 +58,7 @@ const Login = ({ setToken, match }) => {
 
                 <button 
                     type="submit" 
-                    className="btn btn-dark btn-lg btn-block">Register
+                    className="btn btn-primary btn-dark btn-lg btn-block">Login
                 </button>
             {
                 match.url === "/register" ?

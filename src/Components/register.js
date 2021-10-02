@@ -1,27 +1,11 @@
 import React from 'react';
 import { useState } from 'react';
-import { fetchAllPosts, fetchNewUser } from '../API';
+import { fetchNewUser } from '../API';
+import { Posts } from '../Components';
 
-function login( userName, password, setToken) {
-    fetch('https://strangers-things.herokuapp.com/api/2107/users/login', {
-  method: "POST",
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify({
-    user: {
-      username: 'superman27',
-      password: 'krypt0n0rbust'
-    }
-  })
-}).then(response => response.json())
-  .then(result => {
-    console.log(result);
-  })
-  .catch(console.error);
-}
+
 const Register = (props) => {
-    
+    const setToken = props.setToken
     
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
@@ -34,13 +18,14 @@ const Register = (props) => {
         <form onSubmit={async (event) => {
             event.preventDefault();
             try {
-                const response = await fetchNewUser({userName, password, verifyPassword})
+                const response = await fetchNewUser(setToken, userName, password, verifyPassword)
                 
             }
             catch (error) {
                 console.error(error)
 
             }
+            
             
         }}>
                 <h3>Register</h3>
@@ -60,7 +45,7 @@ const Register = (props) => {
                     <input onChange={(event) => setVerifyPassword(event.target.value)} type="password" className="form-control" placeholder="Verify password" required />
                 </div>
 
-                <button type="submit" className="btn btn-dark btn-lg btn-block">Register</button>
+                <button type="submit" className="btn btn-primary btn-dark btn-lg btn-block">Register</button>
                 <p className="forgot-password text-right">
                     Already registered? <a href="#">log in</a>
                 </p>
