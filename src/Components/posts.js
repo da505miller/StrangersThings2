@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { fetchAllPosts } from '../API';
+import { fetchAllPosts, createPost } from '../API';
 
 
 const Posts = () => {
     
     
     
-    
     const [posts, setPosts] = useState([]);
+    
     
 
     useEffect(async () => {
         
         const result = await fetchAllPosts();
-        console.log("UseEffect Posts", result)
-        setPosts(result)
+        console.log("UseEffect Posts", result);
+        setPosts(result);
     }, []);
 
     
@@ -30,10 +30,10 @@ const Posts = () => {
                                     { element.title ? <h2 className="list-group-item-heading text-danger">{ element.title }</h2> : <h2>Post Title: none</h2>}
                                     </div>
                                     { element.author.username ? <h3 className="list-group-item-info">Posted by: { element.author.username }</h3> : null }
-                                    { element.description ? <h4 className="bg-success">Description: { element.description }</h4> : <h4>Description: none</h4> }
-                                    { element.location ? <h4 className="bg-success list-group-item-text">Location: { element.location }</h4> : <h4>Location: unknown</h4>}
-                                    { element.price ? <h4 className="list-group-item-text bg-success text-danger">Price: { element.price }</h4> : <h4>Price: No price listed</h4> }
-                                    { element.willDeliver ? <h4 className="bg-success list-group-item-text">Delivery Available { element.willDeliver }</h4> : <h4>Will Not Deliver</h4> }
+                                    { element.description ? <h4 className="bg-success">Description: { element.description }</h4> : <h4 className="bg-danger">Description: none</h4> }
+                                    { element.location ? <h4 className="bg-success list-group-item-text">Location: { element.location }</h4> : <h4 className="bg-danger" >Location: unknown</h4>}
+                                    { element.price ? <h4 className="list-group-item-text bg-success text-danger">Price: { element.price }</h4> : <h4 className="bg-danger">Price: No price listed</h4> }
+                                    { element.willDeliver ? <h4 className="bg-success list-group-item-text">Delivery Available { element.willDeliver }</h4> : <h4 className="bg-danger">Will Not Deliver</h4> }
                                     <br></br>
                                     <br></br>
                                 </div>)
@@ -42,4 +42,53 @@ const Posts = () => {
             </div>)
 }
 
+const Newpost = (props) => {
+
+    const token = props.token;
+
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
+    const [price, setPrice] = useState(null);
+    const [deliver, setDeliver] = useState("");
+
+    return(
+        <form onSubmit={async (event) => {
+            event.preventDefault();
+            try {
+                const response = await createPost(token, title, description, price, deliver)
+
+            }
+            catch (error) {
+                console.error(error)
+            }
+        }}>
+                <h3>Make a new post</h3>
+
+                <div className="form-group">
+                    <label>Title</label>
+                    <input onChange={(event) => setTitle(event.target.value)} type="text" className="form-control" placeholder="Title" required />
+                </div>
+
+                <div className="form-group">
+                    <label>Description</label>
+                    <input onChange={(event) => setDescription(event.target.value)} type="text" className="form-control" placeholder="Description" />
+                </div>
+
+                <div className="form-group">
+                    <label>Price</label>
+                    <input onChange={(event) => setPrice(event.target.value)} type="number" className="form-control" placeholder="Price" />
+                </div>
+
+                <div className="form-group">
+                    <label>Will deliver?</label>
+                    <input onChange={(event) => setDeliver(event.target.value)} type="text" className="form-control" placeholder="Deliver?" />
+                </div>
+
+                <button type="submit" className="btn btn-primary btn-block">Create Post</button>
+                
+            </form>
+    )
+}
+
 export default Posts;
+export { Newpost };

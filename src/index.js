@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 const App = () => {
   
   const [token, setToken] = useState(null);
+  const [posts, setPosts] = useState([]);
   
   useEffect(() => {
     console.log("Mounted")
@@ -31,7 +32,7 @@ const App = () => {
 
               <Route path="/login" render={(routeProps) => <Login {...routeProps} setToken={setToken} />} />
               <Route path="/register" render={(routeProps) => <Register {...routeProps} setToken={setToken} />} />
-              <Route path="/posts" render={(routeProps) => <Posts {...routeProps} isLoggedIn={!!token}/>}/>
+              <Route path="/posts" render={(routeProps) => <Posts setPosts={setPosts} isLoggedIn={!!token}/>}/>
               <Route path="/newpost" render={(routeProps) => <Newpost {...routeProps} token={token}/>}/>
             </Router></>)
 }

@@ -2,7 +2,7 @@ import Posts from './posts';
 import Title from './title';
 import Register from './register';
 import Login from './login';
-import Newpost from './newpost';
+import Newpost from './posts';
 
 
 export {Posts,
