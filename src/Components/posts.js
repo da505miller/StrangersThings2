@@ -64,6 +64,7 @@ const Newpost = (props) => {
             event.preventDefault();
             try {
                 const response = await createPost(token, title, description, price, deliver);
+                setPosts(response);
                 
                 
 
