@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { useState, useEffect } from 'react'; 
-import { Title, Login, Posts, Register, Newpost } from './Components';
+import { Title, Login, Posts, Register, Newpost, Search} from './Components';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 const App = () => {
   
   const [token, setToken] = useState(null);
+  const [loggedIn, setLoggedIn] = useState(false);
   const [posts, setPosts] = useState([]);
   
   useEffect(() => {
@@ -21,6 +22,7 @@ const App = () => {
   
   return ( 
           <><Title />
+            <Search />
             
             <Router>
               <Link to="/login"> Login </Link>
@@ -32,7 +34,7 @@ const App = () => {
 
               <Route path="/login" render={(routeProps) => <Login {...routeProps} setToken={setToken} />} />
               <Route path="/register" render={(routeProps) => <Register {...routeProps} setToken={setToken} />} />
-              <Route path="/posts" render={(routeProps) => <Posts setPosts={setPosts} isLoggedIn={!!token}/>}/>
+              <Route path="/posts" render={(routeProps) => <Posts {...routeProps} posts={posts} setPosts={setPosts} loggedIn={!!token}/>}/>
               <Route path="/newpost" render={(routeProps) => <Newpost {...routeProps} token={token}/>}/>
             </Router></>)
 }

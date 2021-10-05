@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { fetchNewUser } from '../API';
-import { Posts } from '../Components';
+import { Posts, Login } from '../Components';
 
 
 const Register = (props) => {

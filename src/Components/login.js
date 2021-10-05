@@ -3,6 +3,13 @@ import { Link } from 'react-router-dom';
 import { loginUser, fetchNewUser } from '../API';
 
 
+function loggedIn(props) {
+    const loggedIn = props.loggedIn;
+    const setLoggedIn = props.setLoggedIn;
+
+    
+}
+
 
 const Login = ({ setToken, match }) => {
     const [userName, setUserName] = useState("");

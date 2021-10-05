@@ -108,4 +108,22 @@ export const fetchNewUser = async (setToken, userName, password, verifyPassword)
         catch (err) {
             console.error("Trouble with posting the new post", err)
         }
-    }   
+    } 
+    
+    export const isLoggedin = async (token) => {
+        try {const response = await fetch('https://strangers-things.herokuapp.com/api/2107-CSU-RM-WEB-PT/users/me', {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer TOKEN_STRING_HERE'
+              },
+            })
+            const result = response.json();
+            const data = result.data.user
+            console.log("Is logged in?", data);
+            return data
+        }
+            
+        catch (error) {
+            console.error("trouble fetching user data", error)
+        }
+    }

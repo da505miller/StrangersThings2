@@ -3,11 +3,12 @@ import { Link } from 'react-router-dom';
 import { fetchAllPosts, createPost } from '../API';
 
 
-const Posts = () => {
+const Posts = (props) => {
     
+    const posts = props.posts;
+    const setPosts = props.setPosts;
     
-    
-    const [posts, setPosts] = useState([]);
+    // const [posts, setPosts] = useState([]);
     
     
 
@@ -20,7 +21,7 @@ const Posts = () => {
 
     
     return (<div>
-                <h1>Current Postings</h1>
+                <h1 className="text-center">Current Postings</h1>
                 <br></br>
                 <div>
                     {posts.map((element, index) => {
@@ -56,6 +57,7 @@ const Newpost = (props) => {
             event.preventDefault();
             try {
                 const response = await createPost(token, title, description, price, deliver)
+                
 
             }
             catch (error) {
