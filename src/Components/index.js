@@ -4,6 +4,8 @@ import Register from './register';
 import Login from './login';
 import Newpost from './posts';
 import Search from './search';
+import Message from './posts';
+import Delete from './posts';
 
 
 export {Posts,
@@ -11,4 +13,6 @@ export {Posts,
         Register,
         Login,
         Newpost,
-        Search};
+        Search,
+        Message,
+        Delete};

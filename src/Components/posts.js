@@ -38,6 +38,7 @@ const Posts = (props) => {
                                     { element.price ? <h4 className="list-group-item-text bg-success text-danger">Price: { element.price }</h4> : <h4 className="bg-danger">Price: No price listed</h4> }
                                     { element.willDeliver ? <h4 className="bg-success list-group-item-text">Delivery Available { element.willDeliver }</h4> : <h4 className="bg-danger">Will Not Deliver</h4> }
                                     {<Message />}
+                                    {<Delete />}
                                     <br></br>
                                     <br></br>
                                 </div>)
@@ -114,5 +115,16 @@ const Message = () => {
     )
 }
 
+const Delete = () => {
+    return (
+        <form>
+            <div className="form-group">
+                <button type="submit" className="btn btn-primary">Delete</button>
+            </div>
+        </form>
+        
+    )
+}
+
 export default Posts;
-export { Newpost, Message };
+export { Newpost, Message, Delete };
