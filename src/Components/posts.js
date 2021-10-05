@@ -102,11 +102,11 @@ const Newpost = (props) => {
 const Message = () => {
     return (
         <form className="form-group">
-            <div class="col-lg-6">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Write message here..." />
+            <div className="col-lg-6">
+                <div className="input-group">
+                    <input type="text" className="form-control" placeholder="Write message here..." />
                         <span class="input-group-btn">
-                            <button class="btn btn-primary" type="button">Send</button>
+                            <button className="btn btn-primary" type="submit">Send</button>
                         </span>
                 </div>
             </div>
