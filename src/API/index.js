@@ -89,7 +89,7 @@ export const fetchNewUser = async (setToken, userName, password, verifyPassword)
                 method: "POST",
                 headers: {
                             'Content-Type': 'application/json',
-                            'Authorization': token
+                            'Authorization': 'Bearer' + token
                         },
                 body: JSON.stringify({
                     post: {
@@ -103,27 +103,97 @@ export const fetchNewUser = async (setToken, userName, password, verifyPassword)
             const result = await response.json();
             if (result.error) throw result.error;
             console.log(result)
-            return result.data.posts
+            return result.data.post
         }
         catch (err) {
             console.error("Trouble with posting the new post", err)
         }
     } 
     
-    export const isLoggedin = async (token) => {
+    export const userData = async () => {
         try {const response = await fetch('https://strangers-things.herokuapp.com/api/2107-CSU-RM-WEB-PT/users/me', {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer TOKEN_STRING_HERE'
               },
             })
-            const result = response.json();
-            const data = result.data.user
-            console.log("Is logged in?", data);
-            return data
+            const result = await response.json();
+            const data = result.posts
+            console.log("User data:", data);
+            
         }
             
         catch (error) {
             console.error("trouble fetching user data", error)
+        }
+    }
+
+    export const deletePost = async () => {
+        try {
+            const response = await fetch('https://strangers-things.herokuapp.com/api/2107-CSU-RM-WEB-PT/posts/POST_ID', {
+                method: "DELETE",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer TOKEN_STRING_HERE'
+                },
+            })
+            const result = await response.json();
+            console.log(result);
+            
+        }
+        catch (err) {
+            console.error("Error deleting post", err)
+        }
+    }
+
+    export const editPost = async (title, description, price, location, deliver) => {
+        try {
+            const response = await fetch('https://strangers-things.herokuapp.com/api/2107-CSU-RM-WEB-PT/posts/POST_ID', {
+                method: "PATCH",
+                headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer TOKEN_STRING_HERE'
+                },
+                body: JSON.stringify({
+                post: {
+                    title: title,
+                    description: description,
+                    price: price,
+                    location: location,
+                    willDeliver: deliver
+                }
+            })
+        })
+        const result = await response.json();
+            if (result.error) throw result.error;
+            console.log(result)
+            return result.data.post;
+        }
+        catch (err) {
+            console.error("Trouble with posting the new post", err)
+        }
+    }
+
+    export const createMessage = async (content) => {
+        try {
+            const response = await fetch('https://strangers-things.herokuapp.com/api/2107-CSU-RM-WEB-PT/posts/POST_ID/messages', {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer TOKEN_STRING_HERE'
+                },
+                body: JSON.stringify({
+                    message: {
+                        content: content
+                    }
+                })
+            })
+            const result = await response.json();
+            const data = result.data.message;
+            console.log("message data:", data);
+            return data;
+        }
+        catch (err) {
+            console.error("Trouble creating new message", err)
         }
     }
