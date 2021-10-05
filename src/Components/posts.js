@@ -7,6 +7,8 @@ const Posts = (props) => {
     
     const posts = props.posts;
     const setPosts = props.setPosts;
+    const loggedIn = props.loggedIn;
+    
     
     // const [posts, setPosts] = useState([]);
     
@@ -46,6 +48,9 @@ const Posts = (props) => {
 const Newpost = (props) => {
 
     const token = props.token;
+    const loggedIn = props.loggedIn;
+    const posts = props.posts;
+    const setPosts = props.setPosts;
 
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
@@ -56,7 +61,8 @@ const Newpost = (props) => {
         <form onSubmit={async (event) => {
             event.preventDefault();
             try {
-                const response = await createPost(token, title, description, price, deliver)
+                const response = await createPost(token, title, description, price, deliver);
+                
                 
 
             }
