@@ -37,6 +37,7 @@ const Posts = (props) => {
                                     { element.location ? <h4 className="bg-success list-group-item-text">Location: { element.location }</h4> : <h4 className="bg-danger" >Location: unknown</h4>}
                                     { element.price ? <h4 className="list-group-item-text bg-success text-danger">Price: { element.price }</h4> : <h4 className="bg-danger">Price: No price listed</h4> }
                                     { element.willDeliver ? <h4 className="bg-success list-group-item-text">Delivery Available { element.willDeliver }</h4> : <h4 className="bg-danger">Will Not Deliver</h4> }
+                                    {<Message />}
                                     <br></br>
                                     <br></br>
                                 </div>)
@@ -98,5 +99,20 @@ const Newpost = (props) => {
     )
 }
 
+const Message = () => {
+    return (
+        <form className="form-group">
+            <div class="col-lg-6">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Write message here..." />
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button">Send</button>
+                        </span>
+                </div>
+            </div>
+        </form>
+    )
+}
+
 export default Posts;
-export { Newpost };
+export { Newpost, Message };
