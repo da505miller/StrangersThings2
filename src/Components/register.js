@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { fetchNewUser } from '../API';
 import { Posts, Login } from '../Components';
+import { Link } from 'react-router-dom';
 
 
 const Register = (props) => {
@@ -19,7 +20,8 @@ const Register = (props) => {
             event.preventDefault();
             try {
                 const response = await fetchNewUser(setToken, userName, password, verifyPassword);
-                
+                // {response ? 
+                // <Link to="login">Log in now</Link> : "Try again"}
                 
             }
             catch (error) {

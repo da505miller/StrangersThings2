@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { fetchAllPosts, createPost } from '../API';
+import { fetchAllPosts, createPost, deletePost } from '../API';
 
 
 const Posts = (props) => {
@@ -8,6 +8,7 @@ const Posts = (props) => {
     const posts = props.posts;
     const setPosts = props.setPosts;
     const loggedIn = props.loggedIn;
+    const token = props.token;
     
     
     // const [posts, setPosts] = useState([]);
@@ -38,6 +39,7 @@ const Posts = (props) => {
                                     { element.price ? <h4 className="list-group-item-text bg-success text-danger">Price: { element.price }</h4> : <h4 className="bg-danger">Price: No price listed</h4> }
                                     { element.willDeliver ? <h4 className="bg-success list-group-item-text">Delivery Available { element.willDeliver }</h4> : <h4 className="bg-danger">Will Not Deliver</h4> }
                                     {<Message />}
+                                    <br></br>
                                     {<Delete />}
                                     <br></br>
                                     <br></br>
@@ -56,7 +58,7 @@ const Newpost = (props) => {
 
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
-    const [price, setPrice] = useState(null);
+    const [price, setPrice] = useState("");
     const [deliver, setDeliver] = useState("");
 
     return(
@@ -65,6 +67,7 @@ const Newpost = (props) => {
             try {
                 const response = await createPost(token, title, description, price, deliver);
                 setPosts(response);
+                fetchAllPosts();
                 
                 
 
@@ -82,17 +85,17 @@ const Newpost = (props) => {
 
                 <div className="form-group">
                     <label>Description</label>
-                    <input onChange={(event) => setDescription(event.target.value)} type="text" className="form-control" placeholder="Description" />
+                    <input onChange={(event) => setDescription(event.target.value)} type="text" className="form-control" placeholder="Description" required />
                 </div>
 
                 <div className="form-group">
                     <label>Price</label>
-                    <input onChange={(event) => setPrice(event.target.value)} type="number" className="form-control" placeholder="Price" />
+                    <input onChange={(event) => setPrice(event.target.value)} type="number" className="form-control" placeholder="Price" required />
                 </div>
 
                 <div className="form-group">
                     <label>Will deliver?</label>
-                    <input onChange={(event) => setDeliver(event.target.value)} type="text" className="form-control" placeholder="Deliver?" />
+                    <input onChange={(event) => setDeliver(event.target.value)} type="text" className="form-control" placeholder="Deliver?" required />
                 </div>
 
                 <button type="submit" className="btn btn-primary btn-block">Create Post</button>
@@ -106,7 +109,7 @@ const Message = () => {
         <form className="form-group">
             <div className="col-lg-6">
                 <div className="input-group">
-                    <input type="text" className="form-control" placeholder="Write message here..." />
+                    <input type="text" className="form-control" placeholder="Write message here..." required />
                         <span class="input-group-btn">
                             <button className="btn btn-primary" type="submit">Send</button>
                         </span>
@@ -116,9 +119,21 @@ const Message = () => {
     )
 }
 
-const Delete = () => {
+const Delete = (props) => {
+    // const [currentPost, setCurrentPost] = useState([]);
+
     return (
-        <form>
+        <form> 
+        {/* onSubmit={async (event) => {
+            
+            try {
+                response = await deletePost();
+                fetchAllPosts();
+            }
+            catch (error) {
+                console.error(error)
+            }
+        }}> */}
             <div className="form-group">
                 <button type="submit" className="btn btn-primary">Delete</button>
             </div>
