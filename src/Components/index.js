@@ -6,6 +6,8 @@ import Newpost from './posts';
 import Search from './search';
 import Message from './posts';
 import Delete from './posts';
+import Profile from './profile';
+
 
 
 export {Posts,
@@ -15,4 +17,5 @@ export {Posts,
         Newpost,
         Search,
         Message,
-        Delete};
+        Delete,
+        Profile};
