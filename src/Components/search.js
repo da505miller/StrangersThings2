@@ -2,6 +2,8 @@ import React from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+// Need to figure out all the logic that goes into the Search component
+
 const Search = (props) => {
 
     const posts = props.posts;

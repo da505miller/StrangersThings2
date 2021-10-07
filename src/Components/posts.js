@@ -14,7 +14,7 @@ const Posts = (props) => {
     // const [posts, setPosts] = useState([]);
     
     
-
+    // When i created a post it created 2 identical posts. Do i have a mistake in my useEffect?
     useEffect(async () => {
         
         const result = await fetchAllPosts();
@@ -22,7 +22,7 @@ const Posts = (props) => {
         setPosts(result);
     }, []);
 
-    
+    // My message and delete divs are not showing up with logged in user. are my ternarys wrong?
     return (<div className="container">
                 <h1 className="text-center">Current Postings</h1>
                 <br></br>

@@ -3,8 +3,12 @@ import { useState, useEffect } from 'react';
 import { userData } from '../API';
 
 const Profile = () => {
+
+    // Does my state have to be an empty object? If so how do i map out posts and messages
     const [userPosts, setUserPosts] = useState([]);
     // const [userMessages, setUserMessages] = useState([]);
+
+    
     useEffect(async () => {
         const result = await userData();
         console.log("user data is", result)

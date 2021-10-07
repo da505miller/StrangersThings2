@@ -76,14 +76,9 @@ const Login = ({ setToken, match }) => {
     )
 }
 
-// function login
-// function register
-// login = ({setToken, match})
-// 3 pieces of State
 
-// return form
 
-// app  has router links and routes
+// My logout component does not seem to be working. Does not clear the current token
 
 const Logout = () => {
     return (
