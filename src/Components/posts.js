@@ -89,7 +89,7 @@ const Newpost = (props) => {
             try {
                 const response = await createPost(token, title, description, price, deliver);
                 setPosts(response);
-                fetchAllPosts();
+                fetchAllPosts(posts);
                 
                 
 
@@ -108,6 +108,11 @@ const Newpost = (props) => {
                 <div className="form-group">
                     <label>Description</label>
                     <input onChange={(event) => setDescription(event.target.value)} type="text" className="form-control" placeholder="Description" required />
+                </div>
+
+                <div className="form-group">
+                    <label>Location</label>
+                    <input onChange={(event) => setDescription(event.target.value)} type="text" className="form-control" placeholder="Location" required />
                 </div>
 
                 <div className="form-group">
