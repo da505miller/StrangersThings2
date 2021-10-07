@@ -7,7 +7,7 @@ const Posts = (props) => {
     
     const posts = props.posts;
     const setPosts = props.setPosts;
-    const loggedIn = props.loggedIn;
+    
     const token = props.token;
     
     
@@ -49,17 +49,21 @@ const Posts = (props) => {
                                 <div className="bg-success list-group-item-text">
                                     Will Deliver: { element.willDeliver }
                                 </div>
+                                
                                 <div className="col-lg-6">
-                                <div className="input-group">
-                                    <input type="text" className="form-control" placeholder="Write message here..." required />
-                                    <span class="input-group-btn">
-                                        <button className="btn btn-primary" type="submit">Send</button>
-                                    </span>
+
+                                    {token ? (
+                                    <div className="input-group">
+                                        <input type="text" className="form-control" placeholder="Write message here..." required />
+                                        <span class="input-group-btn">
+                                            <button className="btn btn-primary" type="submit">Send</button>
+                                        </span>
+                                    </div>) : null}
                                 </div>
-                                </div>
+                                {token ? (
                                 <div className="form-group">
                                     <button type="submit" className="btn btn-primary">Delete Post</button>
-                                </div>
+                                </div>) : null}
 
                             </div>)
                     })}
@@ -160,5 +164,5 @@ const Delete = (props) => {
     )
 }
 
-export default Posts;
-export { Newpost, Message, Delete };
+// export default Posts;
+export { Posts, Newpost, Message, Delete };

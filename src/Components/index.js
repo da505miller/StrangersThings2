@@ -1,11 +1,10 @@
-import Posts from './posts';
+
 import Title from './title';
 import Register from './register';
-import Login from './login';
-import Newpost from './posts';
+import { Login, Logout } from './login';
+import { Newpost, Delete, Message, Posts } from './posts';
 import Search from './search';
-import Message from './posts';
-import Delete from './posts';
+
 import Profile from './profile';
 
 
@@ -14,6 +13,7 @@ export {Posts,
         Title,
         Register,
         Login,
+        Logout,
         Newpost,
         Search,
         Message,

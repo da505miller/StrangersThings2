@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { loginUser, fetchNewUser } from '../API';
+import { loginUser, fetchNewUser, logout } from '../API';
 
 
 // export function loggedIn(props) {
@@ -84,4 +84,17 @@ const Login = ({ setToken, match }) => {
 // return form
 
 // app  has router links and routes
-export default Login;
+
+const Logout = () => {
+    return (
+        <button
+            onSubmit={(event) => {
+                event.preventDefault();
+                logout();
+            }} 
+            type="submit"
+            className="btn btn-primary btn-dark btn-lg btn-block">Logout
+        </button>
+    )
+}
+export { Login, Logout };

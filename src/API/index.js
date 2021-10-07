@@ -89,7 +89,7 @@ export const fetchNewUser = async (setToken, userName, password, verifyPassword)
                 method: "POST",
                 headers: {
                             'Content-Type': 'application/json',
-                            'Authorization': 'Bearer' + token
+                            'Authorization': 'Bearer ' + token
                         },
                 body: JSON.stringify({
                     post: {
@@ -110,16 +110,18 @@ export const fetchNewUser = async (setToken, userName, password, verifyPassword)
         }
     } 
     
-    export const userData = async () => {
+    export const userData = async (token) => {
         try {const response = await fetch('https://strangers-things.herokuapp.com/api/2107-CSU-RM-WEB-PT/users/me', {
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'Bearer TOKEN_STRING_HERE'
+                    'Authorization': 'Bearer ' + token
               },
             })
             const result = await response.json();
             const data = result.posts
+            const messages = result.messages
             console.log("User data:", data);
+            console.log("user messages:", messages)
             
         }
             
@@ -128,13 +130,13 @@ export const fetchNewUser = async (setToken, userName, password, verifyPassword)
         }
     }
 
-    export const deletePost = async () => {
+    export const deletePost = async (token) => {
         try {
             const response = await fetch('https://strangers-things.herokuapp.com/api/2107-CSU-RM-WEB-PT/posts/POST_ID', {
                 method: "DELETE",
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'Bearer TOKEN_STRING_HERE'
+                    'Authorization': 'Bearer ' + token
                 },
             })
             const result = await response.json();
@@ -146,13 +148,13 @@ export const fetchNewUser = async (setToken, userName, password, verifyPassword)
         }
     }
 
-    export const editPost = async (title, description, price, location, deliver) => {
+    export const editPost = async (token, title, description, price, location, deliver) => {
         try {
             const response = await fetch('https://strangers-things.herokuapp.com/api/2107-CSU-RM-WEB-PT/posts/POST_ID', {
                 method: "PATCH",
                 headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': 'Bearer TOKEN_STRING_HERE'
+                        'Authorization': 'Bearer ' + token
                 },
                 body: JSON.stringify({
                 post: {
@@ -174,13 +176,13 @@ export const fetchNewUser = async (setToken, userName, password, verifyPassword)
         }
     }
 
-    export const createMessage = async (content) => {
+    export const createMessage = async (token, content) => {
         try {
             const response = await fetch('https://strangers-things.herokuapp.com/api/2107-CSU-RM-WEB-PT/posts/POST_ID/messages', {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'Bearer TOKEN_STRING_HERE'
+                    'Authorization': 'Bearer ' + token
                 },
                 body: JSON.stringify({
                     message: {
@@ -196,4 +198,10 @@ export const fetchNewUser = async (setToken, userName, password, verifyPassword)
         catch (err) {
             console.error("Trouble creating new message", err)
         }
+    }
+    
+    // Logout function
+    export const logout = (setToken) => {
+        setToken(null);
+        localStorage.removeItem("token");
     }
