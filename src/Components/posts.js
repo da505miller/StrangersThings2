@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { fetchAllPosts, createPost, deletePost } from '../API';
 
-
+// I need to figure out the isAuthor function or how to add that into the code
 const Posts = (props) => {
     
     const posts = props.posts;
