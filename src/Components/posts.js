@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { fetchAllPosts, createPost, deletePost } from '../API';
+import { Search } from '../Components';
 
 // I need to figure out the isAuthor function or how to add that into the code
 const Posts = (props) => {
@@ -8,7 +9,7 @@ const Posts = (props) => {
     const posts = props.posts;
     const setPosts = props.setPosts;
     
-    const token = props.token;
+    const isLoggedIn = props.isLoggedIn;
     
     
     // const [posts, setPosts] = useState([]);
@@ -22,9 +23,20 @@ const Posts = (props) => {
         setPosts(result);
     }, []);
 
+    useEffect(() =>{
+        setFilteredResults(posts)
+    }, [posts])
+
+    // Search functions to make search work...new state, filter function
+    const [filteredResults, setFilteredResults] = useState([]);
+    
+
+
     // My message and delete divs are not showing up with logged in user. are my ternarys wrong?
     return (<div className="container">
                 <h1 className="text-center">Current Postings</h1>
+                <br></br>
+                <Search setFilteredResults={setFilteredResults} posts={posts} />
                 <br></br>
                 <div>
                     {posts.map((element, index) => {
@@ -50,19 +62,32 @@ const Posts = (props) => {
                                     Will Deliver: { element.willDeliver }
                                 </div>
                                 
-                                <div className="containter">
+                                <div className="container">
 
-                                    {token ? (
+                                    {/* {isLoggedIn ? ( */}
                                     <div className="input-group">
                                         <input type="text" className="form-control" placeholder="Write message here..." required />
                                         <span class="input-group-btn">
                                             <button className="btn btn-primary" type="submit">Send</button>
                                         </span>
-                                    </div>) : null}
+                                    </div>
+                                     
                                 </div>
-                                {token ? (
+                                {isLoggedIn ? (
                                 <div className="form-group">
-                                    <button type="submit" className="btn btn-primary">Delete Post</button>
+                                    <button 
+                                    onClick={async (event) => {
+                                        event.preventDefault();
+                                        try {
+                                            console.log(response)
+                                            const response = await deletePost(token, element._id)
+                                            return response
+                                        }
+                                        catch (err) {
+                                            console.error("trouble deleting post", err)
+                                        }
+                                    }} 
+                                    type="submit" className="btn btn-primary">Delete Post</button>
                                 </div>) : null}
 
                             </div>)

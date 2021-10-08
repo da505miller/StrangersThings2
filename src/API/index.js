@@ -132,7 +132,7 @@ export const fetchNewUser = async (setToken, userName, password, verifyPassword)
         }
     }
 
-    export const deletePost = async (token) => {
+    export const deletePost = async (token, POST_ID) => {
         try {
             const response = await fetch('https://strangers-things.herokuapp.com/api/2107-CSU-RM-WEB-PT/posts/POST_ID', {
                 method: "DELETE",
@@ -207,3 +207,28 @@ export const fetchNewUser = async (setToken, userName, password, verifyPassword)
         setToken(null);
         localStorage.removeItem("token");
     }
+
+    export const testToken = async (token) => {
+        try {
+            const response = await fetch('https://strangers-things.herokuapp.com/api/2107-CSU-RM-WEB-PT/test/me')
+            const result = await response.json();
+
+            if (result.error) throw result.error;
+                console.log(result)
+        }
+        catch (err) {
+            console.error("Trouble checking for valid token", err)
+        }
+    }
+
+    export const isLoggedIn = async (token) => {
+        try {
+            const response = await fetch('https://strangers-things.herokuapp.com/api/2107-CSU-RM-WEB-PT/test/data')
+            const result = await response.json();
+            console.log("User Logged in?", result)
+            return result
+        }
+        catch (err) {
+            console.error("Trouble fetching info", err)
+        }
+    } 
