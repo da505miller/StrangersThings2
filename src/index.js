@@ -40,7 +40,7 @@ const App = () => {
               <Route path="/register" render={(routeProps) => <Register {...routeProps} setToken={setToken} />} />
               <Route path="/posts" render={(routeProps) => <Posts {...routeProps} posts={posts} setPosts={setPosts} loggedIn={!!token}/>}/>
               <Route path="/newpost" render={(routeProps) => <Newpost {...routeProps} posts={posts} setPosts={setPosts} token={token}/>}/>
-              <Route path="/profile" render={(routeProps) => <Profile {...routeProps} />} />
+              <Route path="/profile" render={(routeProps) => <Profile {...routeProps} token={token} />} />
               <Route path="/logout" render={(routeProps) => <Logout {...routeProps} token={token} />} /> 
             </Router></>)
 }

@@ -83,7 +83,7 @@ export const fetchNewUser = async (setToken, userName, password, verifyPassword)
    }
 
 // This function will attempt to create a new posting
-    export const createPost = async (token, title, description, price, deliver) => {
+    export const createPost = async (token, title, description, price, deliver, location) => {
         try {
             const response = await fetch('https://strangers-things.herokuapp.com/api/2107-CSU-RM-WEB-PT/posts', {
                 method: "POST",
@@ -95,6 +95,7 @@ export const fetchNewUser = async (setToken, userName, password, verifyPassword)
                     post: {
                         title: title,
                         description: description,
+                        location: location,
                         price: price,
                         willDeliver: deliver
                     }
@@ -118,8 +119,9 @@ export const fetchNewUser = async (setToken, userName, password, verifyPassword)
               },
             })
             const result = await response.json();
-            const data = result.posts
-            const messages = result.messages
+            const data = result
+            return data
+            
             console.log("User data:", data);
             console.log("user messages:", messages)
             

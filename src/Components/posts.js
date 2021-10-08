@@ -50,7 +50,7 @@ const Posts = (props) => {
                                     Will Deliver: { element.willDeliver }
                                 </div>
                                 
-                                <div className="col-lg-6">
+                                <div className="containter">
 
                                     {token ? (
                                     <div className="input-group">
@@ -82,12 +82,13 @@ const Newpost = (props) => {
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState("");
     const [deliver, setDeliver] = useState("");
+    const [location, setLocation] = useState("")
 
     return(
         <form onSubmit={async (event) => {
             event.preventDefault();
             try {
-                const response = await createPost(token, title, description, price, deliver);
+                const response = await createPost(token, title, description, price, deliver, location);
                 setPosts(response);
                 fetchAllPosts(posts);
                 
@@ -112,7 +113,7 @@ const Newpost = (props) => {
 
                 <div className="form-group">
                     <label>Location</label>
-                    <input onChange={(event) => setDescription(event.target.value)} type="text" className="form-control" placeholder="Location" required />
+                    <input onChange={(event) => setLocation(event.target.value)} type="text" className="form-control" placeholder="Location" required />
                 </div>
 
                 <div className="form-group">
