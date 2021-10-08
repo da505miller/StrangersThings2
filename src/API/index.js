@@ -226,7 +226,7 @@ export const fetchNewUser = async (setToken, userName, password, verifyPassword)
             const response = await fetch('https://strangers-things.herokuapp.com/api/2107-CSU-RM-WEB-PT/test/data')
             const result = await response.json();
             console.log("User Logged in?", result)
-            return result
+           
         }
         catch (err) {
             console.error("Trouble fetching info", err)
