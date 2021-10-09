@@ -140,12 +140,12 @@ export const fetchNewUser = async (setToken, userName, password, verifyPassword)
 
     export const deletePost = async (token, POST_ID) => {
         try {
-            const response = await fetch('https://strangers-things.herokuapp.com/api/2107-CSU-RM-WEB-PT/posts/POST_ID', {
+            const response = await fetch('https://strangers-things.herokuapp.com/api/2107-CSU-RM-WEB-PT/posts/' + POST_ID, {
                 method: "DELETE",
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + token,
-                    'Post_ID': POST_ID
+                    
                 },
             })
             const result = await response.json();
@@ -186,9 +186,9 @@ export const fetchNewUser = async (setToken, userName, password, verifyPassword)
         }
     }
 
-    export const createMessage = async (token, content) => {
+    export const createMessage = async (token, content, POST_ID) => {
         try {
-            const response = await fetch('https://strangers-things.herokuapp.com/api/2107-CSU-RM-WEB-PT/posts/POST_ID/messages', {
+            const response = await fetch('https://strangers-things.herokuapp.com/api/2107-CSU-RM-WEB-PT/posts/' + POST_ID + '/messages', {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
@@ -201,7 +201,7 @@ export const fetchNewUser = async (setToken, userName, password, verifyPassword)
                 })
             })
             const result = await response.json();
-            const data = result.data.message;
+            const data = result.data;
             console.log("message data:", data);
             return data;
         }
@@ -210,11 +210,11 @@ export const fetchNewUser = async (setToken, userName, password, verifyPassword)
         }
     }
     
-    // Logout function
-    export const logout = (setToken) => {
-        setToken(null);
-        localStorage.removeItem("token");
-    }
+    // // Logout function
+    // export const logout = (setToken) => {
+    //     setToken(null);
+    //     localStorage.removeItem("token");
+    // }
 
     export const testToken = async (token) => {
         try {

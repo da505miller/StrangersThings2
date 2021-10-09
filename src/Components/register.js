@@ -20,8 +20,8 @@ const Register = (props) => {
             event.preventDefault();
             try {
                 const response = await fetchNewUser(setToken, userName, password, verifyPassword);
-                // {response ? 
-                // <Link to="login">Log in now</Link> : "Try again"}
+                
+                // History.push ???
                 
             }
             catch (error) {

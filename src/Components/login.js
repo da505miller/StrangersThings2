@@ -11,7 +11,7 @@ import { loginUser, fetchNewUser, logout } from '../API';
 // }
 
 
-const Login = ({ setToken, match }) => {
+const Login = ({ setToken, match, history }) => {
     const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
     const [confirmedPassword, setConfirmedPassword] = useState("");
@@ -24,9 +24,12 @@ const Login = ({ setToken, match }) => {
                 if (match.url === "/register") {
                     fetchNewUser(setToken, userName, password, confirmedPassword)};
                 if (match.url === "/login") {
+                    console.log(userName, password, confirmedPassword);
                     loginUser(userName, password, setToken)};
-                console.log(userName, password, confirmedPassword);
-            }}>
+                    history.push("/posts")
+                    
+            } 
+                }>
             <div className="form-group">
                     <label>Username</label>
                     <input 
@@ -78,14 +81,21 @@ const Login = ({ setToken, match }) => {
 
 
 
-// My logout component does not seem to be working. Does not clear the current token
+// Not sure if this component works properly. I am unsure if I wrote the history.push correctly.
+// It's supposed to log user out and take them to the login page.
 
-const Logout = () => {
+const Logout = ({ token, setToken, history }) => {
+    
+    
     return (
         <button
             onSubmit={(event) => {
-                event.preventDefault();
-                logout();
+                
+                setToken(null);
+                localStorage.clear();
+                // History.push
+                history.push("/login");
+                
             }} 
             type="submit"
             className="btn btn-primary btn-dark btn-lg btn-block">Logout

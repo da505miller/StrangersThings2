@@ -32,7 +32,7 @@ const Profile = (props) => {
                                     { posts.title }
                                 </h2>
                                 <div className="list-group-item-info">
-                                    Posted by: { posts.author }
+                                    User ID: { posts.author }
                                 </div>
                                 <div className="bg-success">
                                     Description: {posts.description }
@@ -51,8 +51,16 @@ const Profile = (props) => {
                                     <button 
                                     onClick={async (event) => {
                                         event.preventDefault();
-                                        deletePost(event.target)
-                                    }}
+                                        try {
+                                            console.log(response)
+                                            const response = await deletePost(token, posts._id)
+                                            return response
+                                        }
+                                        catch (err) {
+                                            console.error("trouble deleting post", err)
+                                        }
+                                    }} 
+                                    
                                     type="submit" className="btn btn-primary">Delete Post</button>
                                 </div>
                             </div>)

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { fetchAllPosts, createPost, deletePost } from '../API';
+import { fetchAllPosts, createPost, createMessage } from '../API';
 import { Search } from '../Components';
 
 // I need to figure out the isAuthor function or how to add that into the code
@@ -62,24 +62,25 @@ const Posts = (props) => {
                                 <div className="bg-success list-group-item-text">
                                     Will Deliver: { element.willDeliver }
                                 </div>
+                                <br></br>
+                                {token ? <Message /> : null}
                                 
-                                <div className="container">
+                                {/* <div className="container">
 
-                                    {/* {isLoggedIn ? ( */}
-                                    <div 
-                                        onClick={(event) => {
-                                            event.preventDefault();
-
-                                        }} 
-                                        className="input-group">
+                                    
+                                    <div className="input-group">
                                         <input type="text" className="form-control" placeholder="Write message here..." required />
                                         <span className="input-group-btn">
-                                            <button className="btn btn-primary" type="submit">Send</button>
+                                            <button 
+                                            onClick={async (event) => {
+                                                
+                                            }}
+                                            className="btn btn-primary" type="submit">Send</button>
                                         </span>
                                     </div>
                                      
-                                </div>
-                                {isLoggedIn ? (
+                                </div> */}
+                                {/* {isLoggedIn ? (
                                 <div className="form-group">
                                     <button 
                                     onClick={async (event) => {
@@ -94,7 +95,7 @@ const Posts = (props) => {
                                         }
                                     }} 
                                     type="submit" className="btn btn-primary">Delete Post</button>
-                                </div>) : null}
+                                </div>) : null} */}
 
                             </div>)
                     })}
@@ -102,12 +103,12 @@ const Posts = (props) => {
             </div>)
 }
 
-const Newpost = (props) => {
+const Newpost = ({ token, posts, setPosts }) => {
 
-    const token = props.token;
-    const loggedIn = props.loggedIn;
-    const posts = props.posts;
-    const setPosts = props.setPosts;
+    // const token = props.token;
+    // const loggedIn = props.loggedIn;
+    // const posts = props.posts;
+    // const setPosts = props.setPosts;
 
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
@@ -165,12 +166,28 @@ const Newpost = (props) => {
     )
 }
 
-const Message = () => {
+const Message = ({token, content, POST_ID, history}) => {
+    const [message, setMessage] = useState("")
     return (
-        <form className="form-group">
+        <form 
+            onSubmit={async (event) => {
+                event.preventDefault();
+                try {
+                    const response = await createMessage(token, message, POST_ID)
+                    setMessage(response);
+                    history.push("/posts")
+                }
+                catch (error) {
+                console.error(error)
+            }
+                
+            }}
+            className="form-group">
             <div className="col-lg-6">
                 <div className="input-group">
-                    <input type="text" className="form-control" placeholder="Write message here..." required />
+                    <input 
+                        onChange={({target: {value}}) => setMessage(value)} 
+                        type="text" className="form-control" placeholder="Write message here..." required />
                         <span class="input-group-btn">
                             <button className="btn btn-primary" type="submit">Send</button>
                         </span>
@@ -197,7 +214,7 @@ const Delete = (props) => {
         }}> */}
             <div 
                 onClick={(event) => {
-                    
+
                 }}
                 className="form-group">
                 <button type="submit" className="btn btn-primary">Delete</button>
