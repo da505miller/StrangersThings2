@@ -195,7 +195,11 @@ const Delete = (props) => {
                 console.error(error)
             }
         }}> */}
-            <div className="form-group">
+            <div 
+                onClick={(event) => {
+                    
+                }}
+                className="form-group">
                 <button type="submit" className="btn btn-primary">Delete</button>
             </div>
         </form>
