@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { userData } from '../API';
+import { userData, deletePost } from '../API';
 
 const Profile = (props) => {
     const token = props.token;
@@ -48,7 +48,12 @@ const Profile = (props) => {
                                 </div>
                                 
                                 <div className="form-group">
-                                    <button type="submit" className="btn btn-primary">Delete Post</button>
+                                    <button 
+                                    onClick={async (event) => {
+                                        event.preventDefault();
+                                        deletePost(event.target)
+                                    }}
+                                    type="submit" className="btn btn-primary">Delete Post</button>
                                 </div>
                             </div>)
                     })}

@@ -4,9 +4,15 @@ export const BASE_URL = 'https://strangers-things.herokuapp.com';
 export const COHORT = '2107-CSU-RM-WEB-PT';
 
 // This function fetches all current posts from the API
-export const fetchAllPosts = async () => {
+export const fetchAllPosts = async (token) => {
     try {
-        const response = await fetch('https://strangers-things.herokuapp.com/api/2107-CSU-RM-WEB-PT/posts')
+        const response = await fetch('https://strangers-things.herokuapp.com/api/2107-CSU-RM-WEB-PT/posts', {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            }
+        }
+        )
         const result = await response.json();
         
         
@@ -138,10 +144,12 @@ export const fetchNewUser = async (setToken, userName, password, verifyPassword)
                 method: "DELETE",
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + token
+                    'Authorization': 'Bearer ' + token,
+                    'Post_ID': POST_ID
                 },
             })
             const result = await response.json();
+            
             console.log(result);
             
         }
@@ -210,20 +218,30 @@ export const fetchNewUser = async (setToken, userName, password, verifyPassword)
 
     export const testToken = async (token) => {
         try {
-            const response = await fetch('https://strangers-things.herokuapp.com/api/2107-CSU-RM-WEB-PT/test/me')
+            const response = await fetch('https://strangers-things.herokuapp.com/api/2107-CSU-RM-WEB-PT/test/me', {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token
+                }
+            })
             const result = await response.json();
 
             if (result.error) throw result.error;
-                console.log(result)
+                
         }
         catch (err) {
             console.error("Trouble checking for valid token", err)
         }
     }
 
-    export const isLoggedIn = async (token) => {
+    export const loggedIn = async (token) => {
         try {
-            const response = await fetch('https://strangers-things.herokuapp.com/api/2107-CSU-RM-WEB-PT/test/data')
+            const response = await fetch('https://strangers-things.herokuapp.com/api/2107-CSU-RM-WEB-PT/users/me', {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token
+                }
+            })
             const result = await response.json();
             console.log("User Logged in?", result)
            

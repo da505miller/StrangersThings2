@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { fetchAllPosts, createPost, deletePost } from '../API';
 import { Search } from '../Components';
 
@@ -8,6 +8,7 @@ const Posts = (props) => {
     
     const posts = props.posts;
     const setPosts = props.setPosts;
+    const token = props.token;
     
     const isLoggedIn = props.isLoggedIn;
     
@@ -18,7 +19,7 @@ const Posts = (props) => {
     // When i created a post it created 2 identical posts. Do i have a mistake in my useEffect?
     useEffect(async () => {
         
-        const result = await fetchAllPosts();
+        const result = await fetchAllPosts(token);
         console.log("UseEffect Posts", result);
         setPosts(result);
     }, []);
@@ -65,9 +66,14 @@ const Posts = (props) => {
                                 <div className="container">
 
                                     {/* {isLoggedIn ? ( */}
-                                    <div className="input-group">
+                                    <div 
+                                        onClick={(event) => {
+                                            event.preventDefault();
+
+                                        }} 
+                                        className="input-group">
                                         <input type="text" className="form-control" placeholder="Write message here..." required />
-                                        <span class="input-group-btn">
+                                        <span className="input-group-btn">
                                             <button className="btn btn-primary" type="submit">Send</button>
                                         </span>
                                     </div>
@@ -108,14 +114,16 @@ const Newpost = (props) => {
     const [price, setPrice] = useState("");
     const [deliver, setDeliver] = useState("");
     const [location, setLocation] = useState("")
-
+    const history = useHistory()
     return(
         <form onSubmit={async (event) => {
             event.preventDefault();
             try {
                 const response = await createPost(token, title, description, price, deliver, location);
-                setPosts(response);
-                fetchAllPosts(posts);
+                
+                setPosts([...posts, response]);
+                history.push("/posts")
+                
                 
                 
 
