@@ -83,7 +83,7 @@ const Login = ({ setToken, match, history }) => {
 
 
 // Not sure if this component works properly. I am unsure if I wrote the history.push correctly.
-// It's supposed to log user out and take them to the login page.
+// It's supposed to clear token, log user out and take them to the login page.
 
 const Logout = ({ token, setToken, history }) => {
     
@@ -91,11 +91,16 @@ const Logout = ({ token, setToken, history }) => {
     return (
         <button
             onSubmit={(event) => {
+                const storageToken = localStorage.getItem("token")
+                if (storageToken) {localStorage.clear()
+                    setToken(null);
+                    history.push("/login");
+                    }
                 
-                setToken(null);
-                localStorage.clear();
+                
+
                 // History.push
-                history.push("/login");
+                
                 
             }} 
             type="submit"
