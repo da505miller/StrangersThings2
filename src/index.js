@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { useState, useEffect } from 'react'; 
 import { Title, Login, Posts, Register, Newpost, Search, Profile, Logout, Message } from './Components';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import { createMessage, loggedIn, testToken } from './API';
+import { loggedIn, testToken } from './API';
 
 const App = () => {
   
@@ -14,7 +14,8 @@ const App = () => {
   const [posts, setPosts] = useState([]);
 
   
-  
+  // As soon as page hits screen it will take the token from local storage (if there is one) and set it to storedToken.
+  // Also it will pass the token to the 2 api calls to test the token and see if user is logged in
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
     if (storedToken) {setToken(storedToken);
@@ -24,7 +25,7 @@ const App = () => {
   }, [])
 
   
-  
+  // Profile, Make New Post, and Logout links should only be visible if the user has a valid token. If not they should render null and not be visible to the user.
   
   return ( 
           <><Title />
@@ -48,6 +49,7 @@ const App = () => {
               <Route path="/profile" render={(routeProps) => <Profile {...routeProps} token={token} />} />
               <Route path="/logout" render={(routeProps) => <Logout {...routeProps} token={token} setToken={setToken} />} /> 
               <Route path="/message" render={(routeProps) => <Message {...routeProps} token={token} posts={posts} />} />
+              <Route path="/search" render={(routeProps) => <Search {...routeProps} token={token} posts={posts} />} />
             </Router></>)
 }
 

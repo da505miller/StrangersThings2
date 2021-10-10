@@ -23,6 +23,7 @@ const Login = ({ setToken, match, history }) => {
                 
                 if (match.url === "/register") {
                     fetchNewUser(setToken, userName, password, confirmedPassword)};
+                    history.push("/login")
                 if (match.url === "/login") {
                     console.log(userName, password, confirmedPassword);
                     loginUser(userName, password, setToken)};

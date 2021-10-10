@@ -1,12 +1,14 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { userData, deletePost } from '../API';
+import { useHistory } from 'react-router-dom';
 
 const Profile = (props) => {
     const token = props.token;
     // Does my state have to be an empty object? If so how do i map out posts and messages
     const [userPosts, setUserPosts] = useState([]);
     const [userMessages, setUserMessages] = useState([]);
+    const history = useHistory();
 
     
     useEffect(async () => {
@@ -52,9 +54,13 @@ const Profile = (props) => {
                                     onClick={async (event) => {
                                         event.preventDefault();
                                         try {
-                                            console.log(response)
+                                            // From reading the console.log the deletePost function seems to work but whatever i am doing with my repsonse is not removing the post
+                                            
                                             const response = await deletePost(token, posts._id)
-                                            return response
+                                            console.log(response)
+                                            setUserPosts(response)
+                                            history.push("/profile")
+                                            
                                         }
                                         catch (err) {
                                             console.error("trouble deleting post", err)

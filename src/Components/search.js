@@ -1,8 +1,9 @@
 import React from 'react';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+
 
 // Need to figure out all the logic that goes into the Search component
+// This component is totally jacked up. Tried to follow along during lecture and idk what i did but it does not work right
 
 const Search = ({setFilteredResults, posts}) => {
 

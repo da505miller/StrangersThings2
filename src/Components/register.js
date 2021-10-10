@@ -1,12 +1,13 @@
 import React from 'react';
 import { useState } from 'react';
 import { fetchNewUser } from '../API';
-import { Posts, Login } from '../Components';
-import { Link } from 'react-router-dom';
+// import { Posts, Login } from '../Components';
+// import { Link } from 'react-router-dom';
 
 
 const Register = (props) => {
-    const setToken = props.setToken
+    const setToken = props.setToken;
+    const history = props.history
     
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
@@ -20,7 +21,7 @@ const Register = (props) => {
             event.preventDefault();
             try {
                 const response = await fetchNewUser(setToken, userName, password, verifyPassword);
-                
+                history.push("/login")
                 // History.push ???
                 
             }

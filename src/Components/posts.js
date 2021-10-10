@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { fetchAllPosts, createPost, createMessage } from '../API';
 import { Search } from '../Components';
 
@@ -166,6 +166,8 @@ const Newpost = ({ token, posts, setPosts }) => {
     )
 }
 
+// Everytime I try to send a message I get an error saying that POST_ID in my createMessage() api call is undefined and I cannot figure out why.
+// I have gone through a million circles and still get the same error. Cannot figure out how i wrote the code wrong inside createMessage()
 const Message = ({token, content, POST_ID, history}) => {
     const [message, setMessage] = useState("")
     return (
