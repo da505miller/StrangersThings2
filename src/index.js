@@ -34,7 +34,7 @@ const App = () => {
             
             <Router>
               {token ? <Link to="/profile">Profile </Link> : <Link to="/login"> Login </Link>}
-              <Link to="/register"> Register</Link>
+              {!token ? <Link to="/register"> Register</Link> : null}
               <Link to="/posts"> Posts </Link>
               {token ? <Link to="/newpost">Make new post </Link> : null}
               {token ? <Link to="/logout">Log out </Link> : null}

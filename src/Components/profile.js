@@ -54,7 +54,8 @@ const Profile = (props) => {
                                     onClick={async (event) => {
                                         event.preventDefault();
                                         try {
-                                            // From reading the console.log the deletePost function seems to work but whatever i am doing with my repsonse is not removing the post
+                                            // From reading the console.log the deletePost function seems to work. as soon as i hit delete i get and error about map.
+                                            // when i refresh and go back to /posts the posting is gone but still shows in my /profile page. 
                                             
                                             const response = await deletePost(token, posts._id)
                                             console.log(response)

@@ -176,6 +176,7 @@ const Message = ({token, content, POST_ID, history}) => {
                 event.preventDefault();
                 try {
                     const response = await createMessage(token, message, POST_ID)
+                    console.log(response)
                     setMessage(response);
                     history.push("/posts")
                 }
