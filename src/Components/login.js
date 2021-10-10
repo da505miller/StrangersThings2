@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { loginUser, fetchNewUser, logout } from '../API';
+import { loginUser, fetchNewUser } from '../API';
 
 
 // export function loggedIn(props) {

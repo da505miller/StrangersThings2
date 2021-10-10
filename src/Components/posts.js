@@ -202,32 +202,7 @@ const Message = ({token, content, POST_ID, history }) => {
     )
 }
 
-const Delete = (props) => {
-    // const [currentPost, setCurrentPost] = useState([]);
 
-    return (
-        <form> 
-        {/* onSubmit={async (event) => {
-            
-            try {
-                response = await deletePost();
-                fetchAllPosts();
-            }
-            catch (error) {
-                console.error(error)
-            }
-        }}> */}
-            <div 
-                onClick={(event) => {
-
-                }}
-                className="form-group">
-                <button type="submit" className="btn btn-primary">Delete</button>
-            </div>
-        </form>
-        
-    )
-}
 
 // export default Posts;
-export { Posts, Newpost, Message, Delete };
+export { Posts, Newpost, Message };
