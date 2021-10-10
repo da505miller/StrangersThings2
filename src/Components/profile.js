@@ -1,7 +1,10 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { userData, deletePost } from '../API';
+import { userData, deletePost, fetchAllPosts } from '../API';
 import { useHistory } from 'react-router-dom';
+
+// When i refresh this page i get a GET 401 error saying unauthorized with no valid token and a type error
+// of cannot read properties of null (reading 'posts') at profile.js:17
 
 const Profile = (props) => {
     const token = props.token;
@@ -48,19 +51,24 @@ const Profile = (props) => {
                                 <div className="bg-success list-group-item-text">
                                     Will Deliver: { posts.willDeliver }
                                 </div>
-                                
+
+                                {posts.active ?
+                                <div className="bg-success list-group-item-text">
+                                    POST IS CURRENTLY ACTIVE { posts.active }
+                                </div> : null}
+                                {posts.active ? 
                                 <div className="form-group">
                                     <button 
                                     onClick={async (event) => {
-                                        event.preventDefault();
+                                        
                                         try {
-                                            // From reading the console.log the deletePost function seems to work. as soon as i hit delete i get and error about map.
-                                            // when i refresh and go back to /posts the posting is gone but still shows in my /profile page. 
+                                             // calls api function to delete post and then fetches all the posts of user posts
                                             
                                             const response = await deletePost(token, posts._id)
                                             console.log(response)
-                                            setUserPosts(response)
-                                            history.push("/profile")
+                                            fetchAllPosts(userPosts);
+                                            // setUserPosts(response)
+                                            history.push("/posts")
                                             
                                         }
                                         catch (err) {
@@ -69,7 +77,8 @@ const Profile = (props) => {
                                     }} 
                                     
                                     type="submit" className="btn btn-primary">Delete Post</button>
-                                </div>
+                                </div> : null}
+                            
                             </div>)
                     })}
                 </div>

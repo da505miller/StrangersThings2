@@ -118,18 +118,20 @@ export const fetchNewUser = async (setToken, userName, password, verifyPassword)
     } 
     
     export const userData = async (token) => {
-        try {const response = await fetch('https://strangers-things.herokuapp.com/api/2107-CSU-RM-WEB-PT/users/me', {
+        try {
+            const response = await fetch('https://strangers-things.herokuapp.com/api/2107-CSU-RM-WEB-PT/users/me', {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + token
               },
             })
             const result = await response.json();
+            
             const data = result
+            console.log("user Data succesfull??", result)
             return data
             
-            console.log("User data:", data);
-            console.log("user messages:", messages)
+            
             
         }
             
@@ -201,7 +203,8 @@ export const fetchNewUser = async (setToken, userName, password, verifyPassword)
                 })
             })
             const result = await response.json();
-            const data = result.data;
+            const data = result.data.message.content;
+            console.log("POST_ID:", POST_ID)
             console.log("message data:", data);
             return data;
         }

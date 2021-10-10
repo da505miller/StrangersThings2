@@ -168,7 +168,8 @@ const Newpost = ({ token, posts, setPosts }) => {
 
 // Everytime I try to send a message I get an error saying that POST_ID in my createMessage() api call is undefined and I cannot figure out why.
 // I have gone through a million circles and still get the same error. Cannot figure out how i wrote the code wrong inside createMessage()
-const Message = ({token, content, POST_ID, history}) => {
+const Message = ({token, content, POST_ID, history }) => {
+    
     const [message, setMessage] = useState("")
     return (
         <form 
@@ -176,8 +177,9 @@ const Message = ({token, content, POST_ID, history}) => {
                 event.preventDefault();
                 try {
                     const response = await createMessage(token, message, POST_ID)
-                    console.log(response)
-                    setMessage(response);
+                    const newMessage = response.data.message.content
+                    console.log(newMessage)
+                    setMessage(newMessage);
                     history.push("/posts")
                 }
                 catch (error) {
@@ -191,7 +193,7 @@ const Message = ({token, content, POST_ID, history}) => {
                     <input 
                         onChange={({target: {value}}) => setMessage(value)} 
                         type="text" className="form-control" placeholder="Write message here..." required />
-                        <span class="input-group-btn">
+                        <span className="input-group-btn">
                             <button className="btn btn-primary" type="submit">Send</button>
                         </span>
                 </div>
