@@ -30,6 +30,7 @@ const App = () => {
   return ( 
           <><Title />
           <br></br>
+          
             
             
             <Router>
@@ -47,7 +48,7 @@ const App = () => {
               <Route path="/posts" render={(routeProps) => <Posts {...routeProps} posts={posts} setPosts={setPosts} isLoggedIn={!!token} token={token} />}/>
               <Route path="/newpost" render={(routeProps) => <Newpost {...routeProps} posts={posts} setPosts={setPosts} token={token}/>}/>
               <Route path="/profile" render={(routeProps) => <Profile {...routeProps} token={token} />} />
-              <Route path="/logout" render={(routeProps) => <Logout {...routeProps} token={token} setToken={setToken} />} /> 
+              <Route path="/logout" render={(routeProps) => <Logout {...routeProps} setToken={setToken} token={token} />} /> 
               <Route path="/message" render={(routeProps) => <Message {...routeProps} token={token} posts={posts} />} />
               <Route path="/search" render={(routeProps) => <Search {...routeProps} token={token} posts={posts} />} />
             </Router></>)

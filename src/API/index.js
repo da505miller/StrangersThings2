@@ -188,9 +188,10 @@ export const fetchNewUser = async (setToken, userName, password, verifyPassword)
         }
     }
 
-    export const createMessage = async (token, content, POST_ID) => {
+    export const createMessage = async (token, content, _id) => {
+        console.log("ID", _id);
         try {
-            const response = await fetch('https://strangers-things.herokuapp.com/api/2107-CSU-RM-WEB-PT/posts/' + POST_ID + '/messages', {
+            const response = await fetch('https://strangers-things.herokuapp.com/api/2107-CSU-RM-WEB-PT/posts/' + _id + '/messages', {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
@@ -203,10 +204,10 @@ export const fetchNewUser = async (setToken, userName, password, verifyPassword)
                 })
             })
             const result = await response.json();
-            const data = result.data.message.content;
-            console.log("POST_ID:", POST_ID)
-            console.log("message data:", data);
-            return data;
+            const id = result.data.message._id;
+            
+            console.log("message data:", id);
+            return result;
         }
         catch (err) {
             console.error("Trouble creating new message", err)

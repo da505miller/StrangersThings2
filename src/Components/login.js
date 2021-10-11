@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { loginUser, fetchNewUser } from '../API';
 
 
@@ -90,9 +90,14 @@ const Logout = ({ token, setToken, history }) => {
     
     return (
         <button
-            onSubmit={(event) => {
-                const storageToken = localStorage.getItem("token")
-                if (storageToken) {localStorage.clear()
+            onClick={(event) => {
+                const storageToken = token;
+                
+                // const history = useHistory();
+                console.log("storage token is:", storageToken)
+                
+                if (storageToken) {
+                    localStorage.removeItem("token");
                     setToken(null);
                     history.push("/login");
                     }

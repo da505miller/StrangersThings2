@@ -20,7 +20,7 @@ const Posts = (props) => {
     useEffect(async () => {
         
         const result = await fetchAllPosts(token);
-        console.log("UseEffect Posts", result);
+        // console.log("UseEffect Posts", result);
         setPosts(result);
     }, []);
 
@@ -41,7 +41,7 @@ const Posts = (props) => {
                 <br></br>
                 <div>
                     {posts.map((element, index) => {
-                        console.log(element);
+                        {/* console.log(element); */}
                         return (
                             <div key={index} className="containter">
                                 <h2 className="list-group-item-heading text-danger">
@@ -63,7 +63,7 @@ const Posts = (props) => {
                                     Will Deliver: { element.willDeliver }
                                 </div>
                                 <br></br>
-                                {token ? <Message /> : null}
+                                {token ? <Message token={token} _id={element._id}/>  : null}
                                 
                                 {/* <div className="container">
 
@@ -168,17 +168,19 @@ const Newpost = ({ token, posts, setPosts }) => {
 
 // Everytime I try to send a message I get an error saying that POST_ID in my createMessage() api call is undefined and I cannot figure out why.
 // I have gone through a million circles and still get the same error. Cannot figure out how i wrote the code wrong inside createMessage()
-const Message = ({token, content, POST_ID, history }) => {
+const Message = ({token, content, _id }) => {
     
     const [message, setMessage] = useState("")
+    const history = useHistory()
     return (
         <form 
             onSubmit={async (event) => {
                 event.preventDefault();
                 try {
-                    const response = await createMessage(token, message, POST_ID)
+                    const response = await createMessage(token, message, _id)
                     const newMessage = response.data.message.content
-                    console.log(newMessage)
+                    
+                    console.log(newMessage);
                     setMessage(newMessage);
                     history.push("/posts")
                 }

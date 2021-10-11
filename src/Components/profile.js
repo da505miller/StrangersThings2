@@ -12,15 +12,21 @@ const Profile = (props) => {
     const [userPosts, setUserPosts] = useState([]);
     const [userMessages, setUserMessages] = useState([]);
     const history = useHistory();
-
+    console.log(token)
     
     useEffect(async () => {
+        try {
+            if (token) {
         const result = await userData(token);
         console.log("user data is", result);
         const posts = result.data.posts;
         const messages = result.data.messages;
         setUserPosts(posts);
-        setUserMessages(messages);
+        setUserMessages(messages);}
+        }
+        catch (err) {
+            console.error("trouble", err)
+        }
         // setUserMessages(result);
     }, []);
 
