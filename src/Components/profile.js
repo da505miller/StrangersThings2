@@ -3,12 +3,14 @@ import { useState, useEffect } from 'react';
 import { userData, deletePost, fetchAllPosts } from '../API';
 import { useHistory } from 'react-router-dom';
 
-// When i refresh this page i get a GET 401 error saying unauthorized with no valid token and a type error
-// of cannot read properties of null (reading 'posts') at profile.js:17
+// When i refresh this /profile page for some reason it has a bug in it. Cannot figure it out. Maybe it's somehow not reading the token. but when i refresh
+// none of my posts or messages display unless I go to another page and then back to the profile page.
 
 const Profile = (props) => {
+    // Profile component will grab the logged in users data and map through users posts and messages and display them. 
+    // If a user post is still active the delete button will appear for that post and will have a message inside post saying "POST IS CURRENTLY ACTIVE".
+    // If post is not active the active message will not show and no delete button will be present for that post.
     const token = props.token;
-    // Does my state have to be an empty object? If so how do i map out posts and messages
     const [userPosts, setUserPosts] = useState([]);
     const [userMessages, setUserMessages] = useState([]);
     const history = useHistory();
@@ -68,12 +70,13 @@ const Profile = (props) => {
                                     onClick={async (event) => {
                                         
                                         try {
-                                             // calls api function to delete post and then fetches all the posts of user posts
+                                             // calls api function to delete post and then fetches all the posts of user posts.
+                                             // When delete button is pressed the post should delete from main postings page and push user to the posts page
                                             
                                             const response = await deletePost(token, posts._id)
                                             console.log(response)
                                             fetchAllPosts(userPosts);
-                                            // setUserPosts(response)
+                                            
                                             history.push("/posts")
                                             
                                         }

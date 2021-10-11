@@ -4,6 +4,9 @@ import { fetchNewUser } from '../API';
 // import { Posts, Login } from '../Components';
 // import { Link } from 'react-router-dom';
 
+// The register component is a form where a new user can enter a username, password, and they must verify their password. 
+// All fields are required.
+// Once the fill out form and hit register button, their info will now be authorized and it will push them to the login page where they must login to the site.
 
 const Register = (props) => {
     const setToken = props.setToken;
@@ -22,8 +25,6 @@ const Register = (props) => {
             try {
                 const response = await fetchNewUser(setToken, userName, password, verifyPassword);
                 history.push("/login")
-                // History.push ???
-                
             }
             catch (error) {
                 console.error(error)

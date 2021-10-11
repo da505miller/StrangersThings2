@@ -8,31 +8,26 @@ import { loggedIn, testToken } from './API';
 const App = () => {
   
   const [token, setToken] = useState(null);
-
-  
-  
   const [posts, setPosts] = useState([]);
 
-  
   // As soon as page hits screen it will take the token from local storage (if there is one) and set it to storedToken.
   // Also it will pass the token to the 2 api calls to test the token and see if user is logged in
   useEffect(() => {
+    
     const storedToken = localStorage.getItem("token");
     if (storedToken) {setToken(storedToken);
       loggedIn(storedToken);
       testToken(storedToken);
     }
-  }, [])
+  }, []);
 
   
   // Profile, Make New Post, and Logout links should only be visible if the user has a valid token. If not they should render null and not be visible to the user.
+  // A logged out user will only see the links for login, register, and posts. logged out user will not be able to delete posts or send messages.
   
   return ( 
           <><Title />
           <br></br>
-          
-            
-            
             <Router>
               {token ? <Link to="/profile">Profile </Link> : <Link to="/login"> Login </Link>}
               {!token ? <Link to="/register"> Register</Link> : null}

@@ -3,7 +3,8 @@ import { useHistory } from 'react-router-dom';
 import { fetchAllPosts, createPost, createMessage } from '../API';
 import { Search } from '../Components';
 
-// I need to figure out the isAuthor function or how to add that into the code
+// This component grabs all current postings from all users and then maps them out and displays them. 
+// Only loggedin users will be able to see the message field where they can send a message to the author of each post.
 const Posts = (props) => {
     
     const posts = props.posts;
@@ -12,28 +13,24 @@ const Posts = (props) => {
     
     const isLoggedIn = props.isLoggedIn;
     
-    
-    // const [posts, setPosts] = useState([]);
-    
-    
-    // When i created a post it created 2 identical posts. Do i have a mistake in my useEffect?
+    // As soon as page hits the screen useEffect will fetch all posts from api and set them on state
     useEffect(async () => {
         
         const result = await fetchAllPosts(token);
-        // console.log("UseEffect Posts", result);
         setPosts(result);
+    
     }, []);
-
+    // This useEffect is supposed to work with my Search component which i never got working.
     useEffect(() =>{
+        
         setFilteredResults(posts)
-    }, [posts])
+    
+    }, [posts]);
 
-    // Search functions to make search work...new state, filter function
+    // This was to be used with my Search component to make search work...new state, filter function. 
+    // I never got the search component working.
     const [filteredResults, setFilteredResults] = useState([]);
     
-
-
-    // My message and delete divs are not showing up with logged in user. are my ternarys wrong?
     return (<div className="container">
                 <h1 className="text-center">Current Postings</h1>
                 <br></br>
@@ -41,7 +38,7 @@ const Posts = (props) => {
                 <br></br>
                 <div>
                     {posts.map((element, index) => {
-                        {/* console.log(element); */}
+            
                         return (
                             <div key={index} className="containter">
                                 <h2 className="list-group-item-heading text-danger">
@@ -64,51 +61,14 @@ const Posts = (props) => {
                                 </div>
                                 <br></br>
                                 {token ? <Message token={token} _id={element._id}/>  : null}
-                                
-                                {/* <div className="container">
-
-                                    
-                                    <div className="input-group">
-                                        <input type="text" className="form-control" placeholder="Write message here..." required />
-                                        <span className="input-group-btn">
-                                            <button 
-                                            onClick={async (event) => {
-                                                
-                                            }}
-                                            className="btn btn-primary" type="submit">Send</button>
-                                        </span>
-                                    </div>
-                                     
-                                </div> */}
-                                {/* {isLoggedIn ? (
-                                <div className="form-group">
-                                    <button 
-                                    onClick={async (event) => {
-                                        event.preventDefault();
-                                        try {
-                                            console.log(response)
-                                            const response = await deletePost(token, element._id)
-                                            return response
-                                        }
-                                        catch (err) {
-                                            console.error("trouble deleting post", err)
-                                        }
-                                    }} 
-                                    type="submit" className="btn btn-primary">Delete Post</button>
-                                </div>) : null} */}
-
                             </div>)
                     })}
                 </div>
             </div>)
 }
-
+// Newpost component is a form that user will use to make their own new posting and post it to the api for all users to see.
+// Once the new post is created it will push them to the posts page.
 const Newpost = ({ token, posts, setPosts }) => {
-
-    // const token = props.token;
-    // const loggedIn = props.loggedIn;
-    // const posts = props.posts;
-    // const setPosts = props.setPosts;
 
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
@@ -124,10 +84,6 @@ const Newpost = ({ token, posts, setPosts }) => {
                 
                 setPosts([...posts, response]);
                 history.push("/posts")
-                
-                
-                
-
             }
             catch (error) {
                 console.error(error)
@@ -166,8 +122,7 @@ const Newpost = ({ token, posts, setPosts }) => {
     )
 }
 
-// Everytime I try to send a message I get an error saying that POST_ID in my createMessage() api call is undefined and I cannot figure out why.
-// I have gone through a million circles and still get the same error. Cannot figure out how i wrote the code wrong inside createMessage()
+// Got sending a message to work, although I cannot tell if it is actually sending the messages to another user or if I am somehow just sending them to myself. 
 const Message = ({token, content, _id }) => {
     
     const [message, setMessage] = useState("")
@@ -204,7 +159,4 @@ const Message = ({token, content, _id }) => {
     )
 }
 
-
-
-// export default Posts;
 export { Posts, Newpost, Message };

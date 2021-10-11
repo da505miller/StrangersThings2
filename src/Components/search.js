@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 
 // Need to figure out all the logic that goes into the Search component
-// This component is totally jacked up. Tried to follow along during lecture and idk what i did but it does not work right
+// This component is totally jacked up. Tried to follow along and do it during the lecture and idk what i did but it does not work right.
 
 const Search = ({setFilteredResults, posts}) => {
 

@@ -1,4 +1,4 @@
-// This file features and exports all calls to the API
+// This file features and exports all fetch calls to the API
 
 export const BASE_URL = 'https://strangers-things.herokuapp.com';
 export const COHORT = '2107-CSU-RM-WEB-PT';
@@ -116,7 +116,7 @@ export const fetchNewUser = async (setToken, userName, password, verifyPassword)
             console.error("Trouble with posting the new post", err)
         }
     } 
-    
+    // This function will grab the current loggedin users data
     export const userData = async (token) => {
         try {
             const response = await fetch('https://strangers-things.herokuapp.com/api/2107-CSU-RM-WEB-PT/users/me', {
@@ -139,7 +139,7 @@ export const fetchNewUser = async (setToken, userName, password, verifyPassword)
             console.error("trouble fetching user data", error)
         }
     }
-
+    // This function will delete a logged in users post using a token and their postID
     export const deletePost = async (token, POST_ID) => {
         try {
             const response = await fetch('https://strangers-things.herokuapp.com/api/2107-CSU-RM-WEB-PT/posts/' + POST_ID, {
@@ -159,7 +159,7 @@ export const fetchNewUser = async (setToken, userName, password, verifyPassword)
             console.error("Error deleting post", err)
         }
     }
-
+    // This is a function to edit a users post but I did not have time to play with it. I didn't see this was necessary in the grading rubric for this project.
     export const editPost = async (token, title, description, price, location, deliver) => {
         try {
             const response = await fetch('https://strangers-things.herokuapp.com/api/2107-CSU-RM-WEB-PT/posts/POST_ID', {
@@ -187,7 +187,7 @@ export const fetchNewUser = async (setToken, userName, password, verifyPassword)
             console.error("Trouble with posting the new post", err)
         }
     }
-
+    // This function is what creates a new message sent by logged in user to the postID of the post
     export const createMessage = async (token, content, _id) => {
         console.log("ID", _id);
         try {
@@ -214,12 +214,8 @@ export const fetchNewUser = async (setToken, userName, password, verifyPassword)
         }
     }
     
-    // // Logout function
-    // export const logout = (setToken) => {
-    //     setToken(null);
-    //     localStorage.removeItem("token");
-    // }
-
+    
+    // This is a test call
     export const testToken = async (token) => {
         try {
             const response = await fetch('https://strangers-things.herokuapp.com/api/2107-CSU-RM-WEB-PT/test/me', {
@@ -237,7 +233,7 @@ export const fetchNewUser = async (setToken, userName, password, verifyPassword)
             console.error("Trouble checking for valid token", err)
         }
     }
-
+    // test call 
     export const loggedIn = async (token) => {
         try {
             const response = await fetch('https://strangers-things.herokuapp.com/api/2107-CSU-RM-WEB-PT/users/me', {

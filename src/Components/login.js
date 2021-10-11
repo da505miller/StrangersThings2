@@ -3,13 +3,8 @@ import { Link, useHistory } from 'react-router-dom';
 import { loginUser, fetchNewUser } from '../API';
 
 
-// export function loggedIn(props) {
-//     const loggedIn = props.loggedIn;
-//     const setLoggedIn = props.setLoggedIn;
 
-
-// }
-
+    // This component logs in a registered user and then pushes them to the posts page.
 
 const Login = ({ setToken, match, history }) => {
     const [userName, setUserName] = useState("");
@@ -82,8 +77,7 @@ const Login = ({ setToken, match, history }) => {
 
 
 
-// Not sure if this component works properly. I am unsure if I wrote the history.push correctly.
-// It's supposed to clear token, log user out and take them to the login page.
+// Logout component will log out the current user and push them to the login page.
 
 const Logout = ({ token, setToken, history }) => {
     
@@ -92,8 +86,6 @@ const Logout = ({ token, setToken, history }) => {
         <button
             onClick={(event) => {
                 const storageToken = token;
-                
-                // const history = useHistory();
                 console.log("storage token is:", storageToken)
                 
                 if (storageToken) {
@@ -101,12 +93,6 @@ const Logout = ({ token, setToken, history }) => {
                     setToken(null);
                     history.push("/login");
                     }
-                
-                
-
-                // History.push
-                
-                
             }} 
             type="submit"
             className="btn btn-primary btn-dark btn-lg btn-block">Logout
