@@ -155,8 +155,7 @@ const Editpost = ({token, posts, setPosts, _id}) => {
             try {
                 const response = await editPost(token, newTitle, newDescription, newPrice, newLocation, newWillDeliver, _id);
                 const result = response.data;
-                // console.log("Edited post: ", result);
-                // setPosts([...posts, result]);
+                
                 history.push("/posts");
             }
             catch (error) {
