@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { useState, useEffect } from 'react'; 
-import { Title, Login, Posts, Register, Newpost, Search, Profile, Logout, Message } from './Components';
+import { Title, Login, Posts, Editpost, Register, Newpost, Search, Profile, Logout, Message } from './Components';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { loggedIn, testToken } from './API';
 
@@ -29,11 +29,16 @@ const App = () => {
           <><Title />
           <br></br>
             <Router>
-              {token ? <Link to="/profile">Profile </Link> : <Link to="/login"> Login </Link>}
-              {!token ? <Link to="/register"> Register</Link> : null}
-              <Link to="/posts"> Posts </Link>
-              {token ? <Link to="/newpost">Make new post </Link> : null}
-              {token ? <Link to="/logout">Log out </Link> : null}
+            <div id="link-container">
+              {token ? <Link to="/profile" className="link">Profile </Link> : <Link to="/login" className="link"> Login </Link>}
+              {!token ? <Link to="/register" className="link"> Register</Link> : null}
+              <Link to="/posts" className="link"> Posts </Link>
+              {token ? <Link to="/newpost" className="link">Make new post </Link> : null}
+              {token ? <Link to="/logout" className="link">Log out </Link> : null}
+            </div>
+            
+            
+            
               
 
                 
@@ -46,7 +51,14 @@ const App = () => {
               <Route path="/logout" render={(routeProps) => <Logout {...routeProps} setToken={setToken} token={token} />} /> 
               <Route path="/message" render={(routeProps) => <Message {...routeProps} token={token} posts={posts} />} />
               <Route path="/search" render={(routeProps) => <Search {...routeProps} token={token} posts={posts} />} />
-            </Router></>)
+              <Route path="/editPost" render={(routeProps) => <Editpost {...routeProps} token={token} posts={posts} setPosts={setPosts} />} />
+            </Router>
+
+            {!token ? <h3>Please register or login. You can view current posts without logging in.</h3> : null}
+            
+          </>
+            
+            )
 }
 
 

@@ -31,36 +31,38 @@ const Posts = (props) => {
     // I never got the search component working.
     const [filteredResults, setFilteredResults] = useState([]);
     
-    return (<div className="container">
-                <h1 className="text-center">Current Postings</h1>
+    return (<div id="post-box" className="form-group">
+                <h1 className="post-title text-center">Current Postings</h1>
                 <br></br>
                 <Search setFilteredResults={setFilteredResults} posts={posts} />
                 <br></br>
-                <div>
+                <div id="post" className="container">
                     {posts.map((element, index) => {
             
                         return (
                             <div key={index} className="containter">
-                                <h2 className="list-group-item-heading text-danger">
+                                <h2 className="list-group-item-heading">
                                     { element.title }
                                 </h2>
-                                <div className="list-group-item-info">
+                                <div className="form-group list-group-item-info">
                                     Posted by: { element.author.username }
                                 </div>
-                                <div className="bg-success">
+                                <div className="form-group bg-success">
                                     Description: {element.description }
                                 </div>
-                                <div className="bg-success list-group-item-text">
+                                <div className="form-group bg-success list-group-item-text">
                                     Location: { element.location }
                                 </div>
-                                <div className="list-group-item-text bg-success text-danger">
+                                <div className="form-group list-group-item-text bg-success text-danger">
                                     Price: {element.price }
                                 </div>
-                                <div className="bg-success list-group-item-text">
+                                <div className="form-group bg-success list-group-item-text">
                                     Will Deliver: { element.willDeliver }
                                 </div>
                                 <br></br>
                                 {token ? <Message token={token} _id={element._id}/>  : null}
+                                <br></br>
+                                <br></br>
                             </div>)
                     })}
                 </div>
@@ -122,7 +124,7 @@ const Newpost = ({ token, posts, setPosts }) => {
     )
 }
 
-// Got sending a message to work, although I cannot tell if it is actually sending the messages to another user or if I am somehow just sending them to myself. 
+// Message component to send a message to the author of their post. Only registered users can send messages.
 const Message = ({token, content, _id }) => {
     
     const [message, setMessage] = useState("")

@@ -4,12 +4,12 @@ import Register from './register';
 import { Login, Logout } from './login';
 import { Newpost, Message, Posts } from './posts';
 import Search from './search';
-
-import Profile from './profile';
+import { Profile, Editpost } from './profile';
 
 
 
 export {Posts,
+        Editpost,
         Title,
         Register,
         Login,

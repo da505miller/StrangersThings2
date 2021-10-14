@@ -159,10 +159,10 @@ export const fetchNewUser = async (setToken, userName, password, verifyPassword)
             console.error("Error deleting post", err)
         }
     }
-    // This is a function to edit a users post but I did not have time to play with it. I didn't see this was necessary in the grading rubric for this project.
-    export const editPost = async (token, title, description, price, location, deliver) => {
+    // This is a function so a user can edit one of their own posts. It needs a token and a POST_ID.
+    export const editPost = async (token, title, description, price, location, willDeliver, POST_ID) => {
         try {
-            const response = await fetch('https://strangers-things.herokuapp.com/api/2107-CSU-RM-WEB-PT/posts/POST_ID', {
+            const response = await fetch('https://strangers-things.herokuapp.com/api/2107-CSU-RM-WEB-PT/posts/' + POST_ID, {
                 method: "PATCH",
                 headers: {
                         'Content-Type': 'application/json',
@@ -174,17 +174,18 @@ export const fetchNewUser = async (setToken, userName, password, verifyPassword)
                     description: description,
                     price: price,
                     location: location,
-                    willDeliver: deliver
+                    willDeliver: willDeliver
                 }
             })
         })
         const result = await response.json();
+        const currentPost = result.data;
             if (result.error) throw result.error;
-            console.log(result)
-            return result.data.post;
+            console.log("Post is now: ", currentPost)
+            return currentPost;
         }
         catch (err) {
-            console.error("Trouble with posting the new post", err)
+            console.error("Trouble with editing your post", err)
         }
     }
     // This function is what creates a new message sent by logged in user to the postID of the post
